@@ -1206,4 +1206,14 @@
   }
 }
 
+.gt-comment-body,.markdown-body{
+  overflow-x: auto;
+}
+.gt-comment-body blockquote,
+.gt-comment-body div.highlight,
+.gt-comment-body pre{
+  overflow-x: auto;
+}
+
 /*# sourceMappingURL=gitalk.css.map*/
+
