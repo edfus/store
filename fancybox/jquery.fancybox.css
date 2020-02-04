@@ -215,7 +215,7 @@
 	position: absolute;
 	bottom: 0;
 	right: 50%;
-	margin-bottom: -35px;
+	margin-bottom: -40px;
 	z-index: 8050;
 	text-align: center;
 }
@@ -229,7 +229,7 @@
   	color: #E7E7E7;
   	font-size: 14px;
   	font-weight: normal;
-  	padding: 12px 16px;
+  	padding: 8px 12px;
   	border: 0;
   	border-radius: 1px;
   	box-sizing: border-box;
