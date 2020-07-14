@@ -1,7 +1,7 @@
 {
     "name": "andFuss",
     "short_name": "e",
-    "start_url": "/",
+    "start_url": "https://edfus.xyz/",
     "icons": [
         {
             "src": "https://cdn.jsdelivr.net/gh/edfus/storage/favicons/favicon-192.png",
