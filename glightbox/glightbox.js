@@ -2862,7 +2862,7 @@
   for(const i of document.getElementsByClassName('article-entry')){
     //https://github.com/babel/babel/issues/7801
     //Unknown substitution "BODY" given
-    Array.from(i.document.getElementsByTagName('img')).forEach(e => {
+    Array.from(i.getElementsByTagName('img')).forEach(e => {
       if (e.parentNode.classList.contains('glightbox')) return;
       let glightboxCaption = '';
 
