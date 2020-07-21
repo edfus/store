@@ -2877,7 +2877,7 @@
 
 })));
 (()=>{
-  for(const i of document.getElementsByClassName('article-entry')){
+  Array.from(document.getElementsByClassName('article-entry')).forEach(i => {
     Array.from(i.getElementsByTagName('img')).forEach(e => {
       if (e.parentNode.classList.contains('glightbox')) return;
       let glightboxCaption = '';
@@ -2895,7 +2895,7 @@
       }
       else console.log(e + ':no Source Attribute');
     });
-  }
+  });
   GLightbox(null);
 })()
 //FIX: Wrong style when enter pressed
