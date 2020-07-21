@@ -635,8 +635,8 @@
     afterSlideLoad: null,
     slideInserted: null,
     slideRemoved: null,
-    onOpen: null,
-    onClose: null,
+    onOpen: ()=>{ if(document.querySelector('.gotop').classList.contains('show')) document.querySelector('.gotop').classList.toggle('show'); },
+    onClose: ()=>{ document.querySelector('.gotop').setAttribute("style",""); if(window.scrollY > 300) document.querySelector('.gotop').classList.toggle('show'); },
     loop: false,
     touchNavigation: true,
     touchFollowAxis: true,
@@ -693,7 +693,7 @@
   };
   var lightboxSlideHtml = "<section class=\"gslide\">\n    <div class=\"gslide-inner-content\">\n        <figure class=\"ginner-container\">\n            <div class=\"gslide-media\">\n            </div>\n            <figcaption class=\"gslide-description\">\n                <div class=\"gdesc-inner\">\n                    <h4 class=\"gslide-title\"></h4>\n                    <div class=\"gslide-desc\"></div>\n                </div>\n            </figcaption>\n        </figure>\n    </div>\n</section>";
   defaults.slideHtml = lightboxSlideHtml;
-  var lightboxHtml = "<aside id=\"glightbox-body\" class=\"glightbox-container\">\n    <div class=\"gloader visible\"></div>\n    <div class=\"goverlay\"></div>\n    <div class=\"gcontainer\">\n    <div id=\"glightbox-slider\" class=\"gslider\"></div>\n    <button class=\"gnext gbtn\" tabindex=\"0\" aria-label=\"Next\">{nextSVG}</button>\n    <button class=\"gprev gbtn\" tabindex=\"1\" aria-label=\"Previous\">{prevSVG}</button>\n    <button class=\"gclose gbtn\" tabindex=\"2\" aria-label=\"Close\">{closeSVG}</button>\n</div>\n</aside>";
+  var lightboxHtml = "<aside id=\"glightbox-body\" class=\"glightbox-container\">\n    <div class=\"gloader visible\"></div>\n    <div class=\"goverlay\"></div>\n    <div class=\"gcontainer\">\n    <div id=\"glightbox-slider\" class=\"gslider\"></div>\n    <button class=\"gnext gbtn\" tabindex=\"-1\" aria-label=\"Next\">{nextSVG}</button>\n    <button class=\"gprev gbtn\" tabindex=\"-1\" aria-label=\"Previous\">{prevSVG}</button>\n    <button class=\"gclose gbtn\" tabindex=\"-1\" aria-label=\"Close\">{closeSVG}</button>\n</div>\n</aside>";
   defaults.lightboxHtml = lightboxHtml;
   var singleSlideData = {
     href: '',
@@ -1070,7 +1070,7 @@
     var config = element.getAttribute('data-glightbox');
     var nodeType = element.nodeName.toLowerCase();
     if (nodeType === 'a') url = element.href;
-    if (nodeType === 'img') url = element.src;
+    //if (nodeType === 'img') url = element.src;
     data.href = url;
     each(data, function (val, key) {
       if (utils.has(settings, key) && key !== 'width') {
@@ -1118,24 +1118,28 @@
         if (!utils.isNil(title) && title !== '') data.title = title;
       }
 
-      if (nodeType == 'img') {
-        var alt = element.alt;
-        if (!utils.isNil(alt) && alt !== '') data.title = alt;
-      }
+      // if (nodeType == 'img') {
+      //   var alt = element.alt;
+      //   if (!utils.isNil(alt) && alt !== '') data.title = alt;
+      // }
 
       var desc = element.getAttribute('data-description');
       if (!utils.isNil(desc) && desc !== '') data.description = desc;
     }
 
-    if (data.description && data.description.substring(0, 1) == '.' && document.querySelector(data.description)) {
-      data.description = document.querySelector(data.description).innerHTML;
-    } else {
-      var nodeDesc = element.querySelector('.glightbox-desc');
-
-      if (nodeDesc) {
-        data.description = nodeDesc.innerHTML;
-      }
-    }
+    // if (data.description && data.description.substring(0, 1) == '.' && document.querySelector(data.description)) {
+    //   console.log('unsupported');
+    //   data.description = document.querySelector(data.description).innerHTML;
+    // } else {
+    //   // var nodeDesc = element.querySelector('.glightbox-desc');
+    //   console.log('data.description: ' + data.description)
+    //   console.log('data.description.substring(0, 1): ' +data.description.substring(0, 1))
+    //   //console.log('document.querySelector(data.description): ' + document.querySelector(data.description))
+    //   console.log('unsupported');
+    //   // if (nodeDesc) {
+    //   //   data.description = nodeDesc.innerHTML;
+    //   // }
+    // }
 
     setSize(data, settings);
     return data;
@@ -1179,7 +1183,7 @@
         _this.settings.afterSlideLoad({
           index: data.index,
           slide: slide,
-          player: _this.getSlidePlayerInstance(data.index)
+          //player: _this.getSlidePlayerInstance(data.index)
         });
       };
     }
@@ -1198,7 +1202,12 @@
 
       if (slideText && data.description !== '') {
         slideText.id = textID;
-
+        //
+        // if(slideTitle){
+        //   slideTitle.classList.add('with-desc');
+        //   slideTitle.parentNode.classList.add('with-desc');
+        // }
+        //
         if (isMobile && this.settings.moreLength > 0) {
           data.smallDescription = slideShortDesc(data.description, this.settings.moreLength, this.settings.moreText);
           slideText.innerHTML = data.smallDescription;
@@ -1208,8 +1217,13 @@
         }
       } else {
         slideText.parentNode.removeChild(slideText);
+        if(slideTitle){
+          slideTitle.classList.add('without-desc');
+          slideTitle.parentNode.classList.add('without-desc');
+          slideTitle.parentNode.parentNode.classList.add('without-desc');
+        }
       }
-
+      
       addClass(slideMedia.parentNode, "desc-".concat(position));
       addClass(slideDesc.parentNode, "description-".concat(position));
     }
@@ -1616,54 +1630,56 @@
         event = event || window.event;
         var key = event.keyCode;
 
+        // if (key == 9) {
+        //   var activeElement = document.activeElement && document.activeElement.nodeName ? document.activeElement.nodeName.toLocaleLowerCase() : false;
+
+        //   if (activeElement == 'input' || activeElement == 'textarea' || activeElement == 'button') {
+        //     return;
+        //   }
+
+        //   event.preventDefault();
+        //   var btns = document.querySelectorAll('.gbtn');
+
+        //   if (!btns || btns.length <= 0) {
+        //     return;
+        //   }
+
+        //   var focused = _toConsumableArray(btns).filter(function (item) {
+        //     return hasClass(item, 'focused');
+        //   });
+
+        //   if (!focused.length) {
+        //     var first = document.querySelector('.gbtn[tabindex="-1"]');
+
+        //     if (first) {
+        //       first.focus();
+        //       addClass(first, 'focused');
+        //     }
+
+        //     return;
+        //   }
+
+        //   btns.forEach(function (element) {
+        //     return removeClass(element, 'focused');
+        //   });
+        //   var tabindex = focused[0].getAttribute('tabindex');
+        //   tabindex = tabindex ? tabindex : '0';
+        //   var newIndex = parseInt(tabindex) + 1;
+
+        //   if (newIndex > btns.length - 1) {
+        //     newIndex = '0';
+        //   }
+
+        //   var next = document.querySelector(".gbtn[tabindex=\"".concat(newIndex, "\"]"));
+
+        //   if (next) {
+        //     next.focus();
+        //     addClass(next, 'focused');
+        //   }
+        // }
         if (key == 9) {
-          var activeElement = document.activeElement && document.activeElement.nodeName ? document.activeElement.nodeName.toLocaleLowerCase() : false;
-
-          if (activeElement == 'input' || activeElement == 'textarea' || activeElement == 'button') {
-            return;
-          }
-
           event.preventDefault();
-          var btns = document.querySelectorAll('.gbtn');
-
-          if (!btns || btns.length <= 0) {
-            return;
-          }
-
-          var focused = _toConsumableArray(btns).filter(function (item) {
-            return hasClass(item, 'focused');
-          });
-
-          if (!focused.length) {
-            var first = document.querySelector('.gbtn[tabindex="0"]');
-
-            if (first) {
-              first.focus();
-              addClass(first, 'focused');
-            }
-
-            return;
-          }
-
-          btns.forEach(function (element) {
-            return removeClass(element, 'focused');
-          });
-          var tabindex = focused[0].getAttribute('tabindex');
-          tabindex = tabindex ? tabindex : '0';
-          var newIndex = parseInt(tabindex) + 1;
-
-          if (newIndex > btns.length - 1) {
-            newIndex = '0';
-          }
-
-          var next = document.querySelector(".gbtn[tabindex=\"".concat(newIndex, "\"]"));
-
-          if (next) {
-            next.focus();
-            addClass(next, 'focused');
-          }
         }
-
         if (key == 39) _this4.nextSlide();
         if (key == 37) _this4.prevSlide();
         if (key == 27) _this4.close();
@@ -2075,9 +2091,11 @@
           var styleSheet = document.createElement("style");
           styleSheet.type = 'text/css';
           styleSheet.className = 'gcss-styles';
-          styleSheet.innerText = ".gscrollbar-fixer {margin-right: ".concat(scrollBar, "px}");
+          styleSheet.innerText = ".gscrollbar-fixer {margin-right: ".concat(scrollBar, "px;}");
           document.head.appendChild(styleSheet);
-          addClass(body, 'gscrollbar-fixer');
+          //addClass(body, 'gscrollbar-fixer');
+          addClass(html, 'gscrollbar-fixer');
+          document.querySelector('.gotop').style.right = "calc(5% + " + scrollBar + "px)";
         }
 
         addClass(body, 'glightbox-open');
@@ -2261,7 +2279,7 @@
           this.settings.slideInserted({
             index: index,
             slide: this.slidesContainer.querySelectorAll('.gslide')[index],
-            player: this.getSlidePlayerInstance(index)
+            //player: this.getSlidePlayerInstance(index)
           });
         }
       }
@@ -2304,12 +2322,12 @@
         var prevData = {
           index: this.prevActiveSlideIndex,
           slide: this.prevActiveSlide,
-          player: this.getSlidePlayerInstance(this.prevActiveSlideIndex)
+          //player: this.getSlidePlayerInstance(this.prevActiveSlideIndex)
         };
         var nextData = {
           index: this.index,
           slide: this.activeSlide,
-          player: this.getSlidePlayerInstance(this.index)
+          //player: this.getSlidePlayerInstance(this.index)
         };
 
         if (slideMedia.offsetWidth > 0 && slideDesc) {
@@ -2373,11 +2391,11 @@
           this.settings.beforeSlideChange.apply(this, [{
             index: this.prevActiveSlideIndex,
             slide: this.prevActiveSlide,
-            player: this.getSlidePlayerInstance(this.prevActiveSlideIndex)
+            //player: this.getSlidePlayerInstance(this.prevActiveSlideIndex)
           }, {
             index: this.index,
             slide: this.activeSlide,
-            player: this.getSlidePlayerInstance(this.index)
+            //player: this.getSlidePlayerInstance(this.index)
           }]);
         }
 
@@ -2669,9 +2687,9 @@
         var winSize = windowSize();
         //var video = slide.querySelector('.gvideo-wrapper');
         var image = slide.querySelector('.gslide-image');
-        var description = this.slideDescription;
+        //var description = this.slideDescription;
         var winWidth = winSize.width;
-        var winHeight = winSize.height;
+        //var winHeight = winSize.height;
 
         if (winWidth <= 768) {
           addClass(document.body, 'glightbox-mobile');
@@ -2686,17 +2704,17 @@
           return;
         }
 
-        var descriptionResize = false;
+        // var descriptionResize = false;
 
-        if (description && (hasClass(description, 'description-bottom') || hasClass(description, 'description-top')) && !hasClass(description, 'gabsolute')) {
-          descriptionResize = true;
-        }
+        // if (description && (hasClass(description, 'description-bottom') || hasClass(description, 'description-top')) && !hasClass(description, 'gabsolute')) {
+        //   descriptionResize = true;
+        // }
 
         if (image) {
           if (winWidth <= 768) {
             var imgNode = image.querySelector('img');
             imgNode.setAttribute('style', '');
-          } else if (descriptionResize) {
+          }/* else if (descriptionResize) {
             var descHeight = description.offsetHeight;
             var maxWidth = this.slidesData[this.index].width;
             maxWidth = maxWidth <= winWidth ? maxWidth + 'px' : '100%';
@@ -2706,7 +2724,7 @@
             _imgNode.setAttribute('style', "max-height: calc(100vh - ".concat(descHeight, "px)"));
 
             description.setAttribute('style', "max-width: ".concat(_imgNode.offsetWidth, "px;"));
-          }
+          }*/
         }
 
         // if (video) {
@@ -2880,3 +2898,6 @@
   }
   GLightbox(null);
 })()
+//FIX: Wrong style when enter pressed
+//TODO: set border of dragging
+//NOTE: disabled the original dynamic img & des height generater for bad transition concern
