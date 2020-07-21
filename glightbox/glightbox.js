@@ -1680,6 +1680,9 @@
         if (key == 9) {
           event.preventDefault();
         }
+        if (key == 13) {
+          event.preventDefault();
+        }
         if (key == 39) _this4.nextSlide();
         if (key == 37) _this4.prevSlide();
         if (key == 27) _this4.close();
@@ -2898,6 +2901,7 @@
   });
   GLightbox(null);
 })()
-//FIX: Wrong style when enter pressed
 //TODO: set border of dragging
 //NOTE: disabled the original dynamic img & des height generater for bad transition concern
+//TODO: add button empowering dragging mode quit
+//TODO: full screen button (May)
