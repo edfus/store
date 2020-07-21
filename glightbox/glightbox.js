@@ -2885,10 +2885,10 @@
       if (e.parentNode.classList.contains('glightbox')) return;
       let glightboxCaption = '';
 
-      if (e.alt)
-        glightboxCaption += `title: ${e.alt}; `;
       if(e.getAttribute('gallery-item-caption'))
-        glightboxCaption += `description: ${e.getAttribute('gallery-item-caption')}; `;
+        glightboxCaption = `title: ${e.getAttribute('gallery-item-caption')}; `;
+      else if (e.alt)
+        glightboxCaption = `title: ${e.alt}; `;
       
       if(e.src) {
         let glightboxSource = e.src;
