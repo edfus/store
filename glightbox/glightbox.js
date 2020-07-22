@@ -975,7 +975,9 @@
         each(animationNames, function (name) {
           removeClass(target, 'g' + name);
         });
-        if (utils.isFunction(callback)) callback();
+        if (utils.isFunction(callback)) {
+          callback();
+        }
       }
     });
   }
@@ -2827,7 +2829,7 @@
           _this13.prevActiveSlideIndex = null;
           _this13.prevActiveSlide = null;
           _this13.built = false;
-
+          
           if (_this13.events) {
             for (var _key in _this13.events) {
               if (_this13.events.hasOwnProperty(_key)) {
@@ -2839,8 +2841,8 @@
           }
 
           var body = document.body;
-          removeClass(html, 'glightbox-open');
-          removeClass(body, 'glightbox-open touching gdesc-open glightbox-touch glightbox-mobile gscrollbar-fixer');
+          removeClass(html, 'glightbox-open gscrollbar-fixer');
+          removeClass(body, 'glightbox-open touching gdesc-open glightbox-touch glightbox-mobile');
 
           _this13.modal.parentNode.removeChild(_this13.modal);
 
@@ -2857,6 +2859,44 @@
           _this13.lightboxOpen = false;
           _this13.closing = null;
         });
+        
+        if(true){
+          _this13.activeSlide = null;
+          _this13.prevActiveSlideIndex = null;
+          _this13.prevActiveSlide = null;
+          _this13.built = false;
+          
+          //BUG: https://edfus.xyz/2020/02/the-lone-rangers/
+          if (_this13.events) {
+            for (var _key in _this13.events) {
+              if (_this13.events.hasOwnProperty(_key)) {
+                _this13.events[_key].destroy();
+              }
+            }
+
+            _this13.events = null;
+          }
+
+          var body = document.body;
+          removeClass(html, 'glightbox-open gscrollbar-fixer');
+          removeClass(body, 'glightbox-open touching gdesc-open glightbox-touch glightbox-mobile');
+
+          _this13.modal.parentNode.removeChild(_this13.modal);
+
+          if (utils.isFunction(_this13.settings.onClose)) {
+            _this13.settings.onClose();
+          }
+
+          var styles = document.querySelector('.gcss-styles');
+
+          if (styles) {
+            styles.parentNode.removeChild(styles);
+          }
+
+          _this13.lightboxOpen = false;
+          _this13.closing = null;
+        }
+        
       }
     }, {
       key: "destroy",
@@ -2903,5 +2943,5 @@
 })()
 //TODO: set border of dragging
 //NOTE: disabled the original dynamic img & des height generater for bad transition concern
-//TODO: add button empowering dragging mode quit
+//TO\DO: add button empowering dragging mode quit
 //TODO: full screen button (May)
