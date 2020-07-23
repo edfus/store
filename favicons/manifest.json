@@ -2,6 +2,7 @@
     "name": "andFuss",
     "short_name": "e",
     "start_url": "https://edfus.xyz/",
+    "scope": "https://edfus.xyz/",
     "icons": [
         {
             "src": "https://cdn.jsdelivr.net/gh/edfus/storage/favicons/favicon-192.png",
@@ -22,5 +23,11 @@
     ],
     "background_color": "#222",
     "theme_color": "#222",
-    "display": "standalone"
+    "display": "standalone",
+    "shortcuts": [
+        {
+            "name": "More",
+            "url": "https://edfus.xyz/more/"
+        }
+    ]
 }
