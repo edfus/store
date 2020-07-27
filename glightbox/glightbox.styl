@@ -3,14 +3,8 @@ a.glightbox:focus{
 }
 
 .glightbox-container, 
-// .glightbox-container > .gcontainer,
-// .gcontainer > .gslider,
-// .gslider > .gslide,
-// .gslide > .gslide-inner-content,
 .gslide-inner-content > .ginner-container,
 .goverlay {
-  // width: 100%;
-  // height: 100%;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -33,17 +27,8 @@ a.glightbox:focus{
   outline: none;
 }
 
-.glightbox-container > .gcontainer {
-  //position: relative;
-  //z-index: 100;
-}
-
 .gcontainer > .gslider {
   position: relative;
-  // display: flex !important;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   transition: transform .4s ease;
 }
 
@@ -56,23 +41,17 @@ a.glightbox:focus{
 }
 
 .gslider > .gslide.current {
-  // position: relative;
-  // display: flex;
   display: block;
   opacity: 1;
   z-index: 2;
 }
 
 .gslider > .gslide.prev {
-  // display: flex;
   display: block;
   opacity: 1;
   z-index: 1;
 }
 
-// .gslide > .gslide-inner-content {
-//   width: 100%;
-// }
 
 .gslide-inner-content > .ginner-container.desc-bottom {
   position: relative;
@@ -80,7 +59,6 @@ a.glightbox:focus{
   display: flex;
   justify-content: center;
   flex-direction: column;
-  //margin: auto;
 }
 
 .greset {
@@ -118,21 +96,10 @@ html.glightbox-open {
 .goverlay{  
   position: fixed;
   background-color: #000;
-  will-change: opacity;
 }
 .glightbox-closing > .goverlay {
-  //transition: opacity .3s ease;
   opacity: 0  //fix blink
 }
-// const e = document.querySelector('.goverlay');
-// const config = { attributes: true };
-// const callback = function(mutationsList, observer) {
-//     console.log("e.class" + e.getAttribute('class'));
-//     console.log("e.parentNode.class " + e.parentNode.getAttribute('class'));
-// };
-// const observer = new MutationObserver(callback);
-
-// observer.observe(e, config);
 
 /*
 *
@@ -152,8 +119,9 @@ html.glightbox-open {
   width: auto;
   max-height: calc(97vh - 30px);
   max-width: 100%;
-  //touch-action: none; 
+  touch-action: none; 
     /* can touch-action be auto inherited? */
+    // Inherited:	no
 }
 
 .gslide-image > img.zoomable {
@@ -375,34 +343,42 @@ html.glightbox-open {
 
 .gfadeIn {
   animation: gfadeIn .5s ease;
+  will-change: opacity, contents;
 }
 
 .gfadeOut {
   animation: gfadeOut .2s ease;
+  will-change: opacity, contents;
 }
 
 .gslideOutLeft {
   animation: gslideOutLeft .3s ease;
+  will-change: opacity, contents;
 }
 
 .gslideInLeft {
   animation: gslideInLeft .3s ease;
+  will-change: opacity, contents;
 }
 
 .gslideOutRight {
   animation: gslideOutRight .3s ease;
+  will-change: opacity, contents;
 }
 
 .gslideInRight {
   animation: gslideInRight .3s ease;
+  will-change: opacity, contents;
 }
 
 .gzoomIn {
   animation: gzoomIn .5s ease;
+  will-change: opacity, transform, contents;
 }
 
 .gzoomOut {
   animation: gzoomOut .5s ease;
+  will-change: opacity, transform, contents;
 }
 
 @keyframes lightboxLoader {
@@ -489,7 +465,7 @@ html.glightbox-open {
   }
   50% {
     opacity: 0;
-    transform: scale3d(.3, .3);
+    transform: scale(.3, .3);
   }
   to {
     opacity: 0;
