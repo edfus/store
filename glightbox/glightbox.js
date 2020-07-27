@@ -1272,7 +1272,14 @@
       }, false);
       img.src = data.href;
       img.alt = '';
-
+      img.addEventListener('error', function () {
+        if (img.src.substring(img.src.length - 5, img.src.length)==='.webp' && img.src.substring(img.src.length - 10, img.src.length - 5).includes('.')){
+          img.src = img.src.substring(0, img.src.length - 5);
+        }
+        else {
+          ; //TODO: add 404 alert
+        }
+      }, false);
       if (data.title !== '') {
         img.setAttribute('aria-labelledby', titleID);
       }
