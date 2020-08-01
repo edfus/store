@@ -27,7 +27,24 @@
     "shortcuts": [
         {
             "name": "More",
-            "url": "https://edfus.xyz/more/"
+            "url": "https://edfus.xyz/more/",
+            "icons": [{"src": "https://cdn.jsdelivr.net/gh/edfus/storage/favicons/flanByᴉD_ǝR3.png", "sizes": "192x192"}]
+        },
+        {
+            "name": "Tech",
+            "url": "https://edfus.xyz/categories/tech/",
+            "icons": [{"src": "https://cdn.jsdelivr.net/gh/edfus/storage/favicons/flanByᴉD_ǝR1.png", "sizes": "192x192"}]
+        },
+        {
+            "name": "ゆっくり",
+            "short_name": "Yukkuri",
+            "url": "https://edfus.xyz/categories/yukkuri/",
+            "icons": [{"src": "https://cdn.jsdelivr.net/gh/edfus/storage/favicons/flanByᴉD_ǝR4.png", "sizes": "192x192"}]
+        },
+        {
+            "name": "Gallery",
+            "url": "https://edfus.xyz/categories/gallery/",
+            "icons": [{"src": "https://cdn.jsdelivr.net/gh/edfus/storage/favicons/flanByᴉD_ǝR2.png", "sizes": "192x192"}]
         }
-    ]
+    ]     
 }
