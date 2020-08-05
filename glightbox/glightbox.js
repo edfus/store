@@ -1277,7 +1277,8 @@
           img.src = img.src.substring(0, img.src.length - 5);
         }
         else {
-          ; //TODO: add 404 alert
+          img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABIAQMAAABvIyEEAAAABlBMVEUAAABTU1OoaSf/AAAAAXRSTlMAQObYZgAAAENJREFUeF7tzbEJACEQRNGBLeAasBCza2lLEGx0CxFGG9hBMDDxRy/72O9FMnIFapGylsu1fgoBdkXfUHLrQgdfrlJN1BdYBjQQm3UAAAAASUVORK5CYII=';
+          img.alt = '404 Not Found';
         }
       }, false);
       if (data.title !== '') {
