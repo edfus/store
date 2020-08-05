@@ -1273,12 +1273,19 @@
       img.src = data.href;
       img.alt = '';
       img.addEventListener('error', function () {
-        if (img.src.substring(img.src.length - 5, img.src.length)==='.webp' && img.src.substring(img.src.length - 10, img.src.length - 5).includes('.')){
-          img.src = img.src.substring(0, img.src.length - 5);
-        }
-        else {
+        if(!img.errored){
+          img.errored = true;
+          if(img.src.substring(img.src.length - 5, img.src.length)!=='.webp'){
+            img.src = img.src + '.webp';
+          } else if (img.src.substring(img.src.length - 10, img.src.length - 5).includes('.')){
+            img.src = img.src.substring(0, img.src.length - 5);
+          }
+        } else {
           img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABIAQMAAABvIyEEAAAABlBMVEUAAABTU1OoaSf/AAAAAXRSTlMAQObYZgAAAENJREFUeF7tzbEJACEQRNGBLeAasBCza2lLEGx0CxFGG9hBMDDxRy/72O9FMnIFapGylsu1fgoBdkXfUHLrQgdfrlJN1BdYBjQQm3UAAAAASUVORK5CYII=';
           img.alt = '404 Not Found';
+          img.style.left = '19.5px';
+          img.style.minWidth = '72px';
+          img.style.position = 'relative';
         }
       }, false);
       if (data.title !== '') {
