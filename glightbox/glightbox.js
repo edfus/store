@@ -1283,10 +1283,11 @@
         } else {
           img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABIAQMAAABvIyEEAAAABlBMVEUAAABTU1OoaSf/AAAAAXRSTlMAQObYZgAAAENJREFUeF7tzbEJACEQRNGBLeAasBCza2lLEGx0CxFGG9hBMDDxRy/72O9FMnIFapGylsu1fgoBdkXfUHLrQgdfrlJN1BdYBjQQm3UAAAAASUVORK5CYII=';
           img.alt = '404 Not Found';
-          img.style.left = '19.5px';
-          img.style.bottom = '15px';
-          img.style.minWidth = '72px';
-          img.style.position = 'relative';
+          img.classList.add('glightbox-error');
+          // img.style.left = '19.5px';
+          // img.style.bottom = '15px';
+          // img.style.minWidth = '72px';
+          // img.style.position = 'relative';
           slideTitle.innerHTML = '<div style="min-width: 52px;text-align: center;">ERROR</div>';
         }
       }, false);
